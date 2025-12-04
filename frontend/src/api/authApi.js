@@ -1,6 +1,6 @@
 
 import axios from "axios";
-const API = "http://localhost:5000/api/auth";
+const API = "https://pasteapp-ovci.onrender.com/api/auth";
 
 export const registerAPI = (data) => axios.post(`${API}/register`, data);
 export const loginAPI = (data) => axios.post(`${API}/login`, data);
