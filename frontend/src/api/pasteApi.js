@@ -1,6 +1,6 @@
 
 import axios from "axios";
-const API = "http://localhost:5000/api/pastes";
+const API = "https://pasteapp-ovci.onrender.com/api/pastes";
 const getToken = () => localStorage.getItem("token");
 
 export function fetchPastes() {
