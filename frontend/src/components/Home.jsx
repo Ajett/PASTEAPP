@@ -173,24 +173,40 @@ const Home = () => {
   }, [pasteId, pastes]);
 
   async function handleSubmit() {
-    const paste = { title, content: value, syntax, visibility };
-    try {
-      if (pasteId) {
-        const res = await updatePasteAPI(pasteId, paste);
-        dispatch(updatePaste(res.data));
-        toast.success("Paste updated");
-      } else {
-        const res = await createPasteAPI(paste);
-        dispatch(addPaste(res.data));
-        toast.success("Paste created");
-      }
-      setTitle("");
-      setValue("");
-      setSearchParams({});
-    } catch (err) {
-      toast.error("Action failed");
-    }
+  // 🔥 Title Validation
+  if (!title.trim()) {
+    toast.error("Please enter a title");
+    return;
   }
+
+  // (Optional) Content Validation
+  if (!value.trim()) {
+    toast.error("Paste content cannot be empty");
+    return;
+  }
+
+  const paste = { title, content: value, syntax, visibility };
+
+  try {
+    if (pasteId) {
+      const res = await updatePasteAPI(pasteId, paste);
+      dispatch(updatePaste(res.data));
+      toast.success("Paste updated");
+    } else {
+      const res = await createPasteAPI(paste);
+      dispatch(addPaste(res.data));
+      toast.success("Paste created");
+    }
+
+    setTitle("");
+    setValue("");
+    setSearchParams({});
+
+  } catch (err) {
+    toast.error("Action failed");
+  }
+}
+
 
   return (
     <div className="max-w-6xl mx-auto mt-8 px-4">
